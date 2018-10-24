@@ -1,0 +1,11 @@
+body {
+background-color: lightgray;
+}
+
+
+.imgs {
+display: inline-block;    
+margin: 0 auto;
+border-color: bisque;
+margin-left: 50px;
+}
