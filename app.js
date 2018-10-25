@@ -22,10 +22,25 @@ var arrayOfURL = [
   'images/wine-glass.jpg',
 ];
 
+let likesArrStringy;
+
 // globbies
 var allPushedFromConstructor = [];
-var likesArr = [];
 var namesArr = [];
+
+// var foundRelevantLocalStorage = false;
+
+
+var getter = localStorage.getItem('setting', likesArrStringy);
+var parser = JSON.parse(getter);
+
+if(parser){
+  likesArr = parser;
+}
+
+else{
+  var likesArr = [];
+}
 
 
 //for testing
@@ -165,6 +180,12 @@ var forTestingPurposes = function(){
 //ok, the following is hard coded version, just to get up and running i suppose, but really it shouldn't increment an arbitrary image counter, it should increment this.likesArr.
 
 
+// var allPushedFromConstructor = [];
+// var likesArr = [];
+// var namesArr = [];
+
+
+
 var renderChart = function(){
   //chart needs ctx
 
@@ -219,12 +240,12 @@ var renderChart = function(){
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)', 
+          'rgba(255, 159, 64, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)', 
+          'rgba(255, 159, 64, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
@@ -272,19 +293,19 @@ var clickHandler = function(event){
   totalCLicks++;
 
   if (totalCLicks === 25){
+
     for (var i = 0; i < allPushedFromConstructor.length; i ++){
       likesArr.push(allPushedFromConstructor[i].likesArr);
     }
 
     getImgDiv.removeEventListener('click', clickHandler);
+
+     likesArrStringy = JSON.stringify(likesArr);
+    var localSetter = localStorage.setItem('setting', likesArrStringy);
+
     renderChart();
 
-    //   var listGetter = document.getElementById('displayList');
-    // for (var i = 0; i < allPushedFromConstructor.length; i ++){
-    //   var nameLi = document.createElement('li');
-    //   nameLi.textContent = `${allPushedFromConstructor[i].name} received this many clicks ${allPushedFromConstructor[i].likesArr}`;
-    //   console.log(nameLi);
-    //   listGetter.appendChild(nameLi);
+
 
 
   }
