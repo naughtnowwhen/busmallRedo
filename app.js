@@ -44,7 +44,7 @@ var getter = localStorage.getItem('setting', likesArrStringy);
 var parser = JSON.parse(getter);
 
 if(parser){
-  // likes = parser;
+  likes = parser;
 
 }
 
