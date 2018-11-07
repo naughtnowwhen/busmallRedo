@@ -21,10 +21,36 @@ var arrayOfURL = [
   'images/wine-glass.jpg',
 ];
 
+
+
+// var testGet = document.getElementById('test');
+// testGet.width = 100;
+// testGet.height = 100;
+// testGet.src = arrayOfURL[20];
+// console.log(arrayOfURL[7]);
+
+
+let likesArrStringy;
+
 // globbies
 var allPushedFromConstructor = [];
-var likesArr = [];
 var namesArr = [];
+var likes;
+
+var foundRelevantLocalStorage = false;
+
+
+var getter = localStorage.getItem('setting', likesArrStringy);
+var parser = JSON.parse(getter);
+
+if(parser){
+  // likes = parser;
+
+}
+
+else{
+  var likes = [];
+}
 
 
 //for testing
@@ -45,7 +71,7 @@ var domImgGetters = [getFirstImg,getSecondImg,getThirdImg];
 var Image = function(src){
   this.src = src;
   this.name = src.slice(7, -4);
-  this.likesArr = 0;
+  this.likes = 0;
   namesArr.push(this.name);
   // int for ease of tracking
   allPushedFromConstructor.push(this);
@@ -161,7 +187,13 @@ var forTestingPurposes = function(){
 //increment all current images appeared
 // test if we have clicked 25 times
 
-//ok, the following is hard coded version, just to get up and running i suppose, but really it shouldn't increment an arbitrary image counter, it should increment this.likesArr.
+//ok, the following is hard coded version, just to get up and running i suppose, but really it shouldn't increment an arbitrary image counter, it should increment this.likes.
+
+
+// var allPushedFromConstructor = [];
+// var likes = [];
+// var namesArr = [];
+
 
 
 var renderChart = function(){
@@ -175,14 +207,16 @@ var renderChart = function(){
 
   //call a new chart and pass in ctx and our data.
 
-  var ctx = document.getElementById('myCanvas').getContext('2d');
+  var ctx = document.getElementById('canvas').getContext('2d');
+  ctx.canvas.height = 300;
+  ctx.canvas.width = 300;
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: namesArr,
       datasets: [{
         label: '# of Votes',
-        data: likesArr,
+        data: likes,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -218,12 +252,12 @@ var renderChart = function(){
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)', 
+          'rgba(255, 159, 64, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)', 
+          'rgba(255, 159, 64, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
@@ -243,13 +277,12 @@ var renderChart = function(){
       }
     }
   });
-
 };
 
 
 
-
 var totalCLicks = 0;
+
 
 
 var clickHandler = function(event){
@@ -257,35 +290,31 @@ var clickHandler = function(event){
   var whatWasClicked = (event.target);
 
   if(whatWasClicked.id === 'first'){
-    RandosGrabbed[0].likesArr++;
+    RandosGrabbed[0].likes++;
 
   }
   else if(whatWasClicked.id === 'second'){
-    RandosGrabbed[1].likesArr++;
+    RandosGrabbed[1].likes++;
   }
 
   else if (whatWasClicked.id === 'third'){
-    RandosGrabbed[2].likesArr++;
+    RandosGrabbed[2].likes++;
   }
 
   totalCLicks++;
 
   if (totalCLicks === 25){
+
     for (var i = 0; i < allPushedFromConstructor.length; i ++){
-      likesArr.push(allPushedFromConstructor[i].likesArr);
+      likes.push(allPushedFromConstructor[i].likes);
     }
 
     getImgDiv.removeEventListener('click', clickHandler);
+
+    likesArrStringy = JSON.stringify(likes);
+    var localSetter = localStorage.setItem('setting', likesArrStringy);
+
     renderChart();
-
-    //   var listGetter = document.getElementById('displayList');
-    // for (var i = 0; i < allPushedFromConstructor.length; i ++){
-    //   var nameLi = document.createElement('li');
-    //   nameLi.textContent = `${allPushedFromConstructor[i].name} received this many clicks ${allPushedFromConstructor[i].likesArr}`;
-    //   console.log(nameLi);
-    //   listGetter.appendChild(nameLi);
-
-
   }
 
 
