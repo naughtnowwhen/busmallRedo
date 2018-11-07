@@ -45,7 +45,6 @@ var parser = JSON.parse(getter);
 
 if(parser){
   likes = parser;
-
 }
 
 else{
