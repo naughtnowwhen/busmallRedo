@@ -22,6 +22,7 @@ var arrayOfURL = [
 ];
 
 
+
 // var testGet = document.getElementById('test');
 // testGet.width = 100;
 // testGet.height = 100;
@@ -34,8 +35,9 @@ let likesArrStringy;
 // globbies
 var allPushedFromConstructor = [];
 var namesArr = [];
+var likes;
 
-// var foundRelevantLocalStorage = false;
+var foundRelevantLocalStorage = false;
 
 
 var getter = localStorage.getItem('setting', likesArrStringy);
@@ -282,6 +284,7 @@ var renderChart = function(){
 var totalCLicks = 0;
 
 
+
 var clickHandler = function(event){
 
   var whatWasClicked = (event.target);
@@ -298,12 +301,6 @@ var clickHandler = function(event){
     RandosGrabbed[2].likes++;
   }
 
-  
-if (totalCLicks > 5){
-  
-
-}
-
   totalCLicks++;
 
   if (totalCLicks === 25){
@@ -318,10 +315,6 @@ if (totalCLicks > 5){
     var localSetter = localStorage.setItem('setting', likesArrStringy);
 
     renderChart();
-
-
-
-
   }
 
 
